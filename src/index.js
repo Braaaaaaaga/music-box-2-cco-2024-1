@@ -1,17 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+// Importa o componente App do arquivo './App'
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+// Importa a biblioteca React
+import React from 'react';
+
+// Importa a biblioteca ReactDOM específica para o gerenciamento de DOM em aplicações React
+import ReactDOM from 'react-dom/client';
+
+// Cria uma referência ao elemento raiz ('root') do DOM. Isto é onde a aplicação React será montada.
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// Renderiza o componente App dentro do elemento raiz do DOM, utilizando StrictMode.
+// StrictMode é uma ferramenta para destacar potenciais problemas em uma aplicação.
+// Não afeta a renderização, mas ativa verificações e avisos adicionais para seus descendentes.
 root.render(
   <React.StrictMode>
-    <App />
+    <App /> {/* // Componente App sendo renderizado */}
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
