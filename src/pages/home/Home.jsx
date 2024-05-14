@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./Home.module.css";
+import NavBar from "../../components/navbar/NavBar";
+import logo from "../../utils/assets/logo.svg";
 import imgPrincipal from "../../utils/assets/img-fundo-principal.png";
 const Home = () => {
     return (
         <>
+            <NavBar logoInicio={logo} />
             <div className={styles["background-image"]}>
                 <img src={imgPrincipal} alt="Imagem de fundo" />
                 <div className={styles["titulo"]}>
