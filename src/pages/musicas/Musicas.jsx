@@ -5,7 +5,8 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../../components/navbar/NavBar";
 import CardMusica from "../../components/cardMusica/CardMusica";
 const Musicas = () => {
-    const [cardsData, setCardsData] = useState();
+    const [cardsData, setCardsData] = useState([]);
+    
     function recuperarValorDoCard() {
         api.get().then((response) => {
             const { data } = response;
@@ -15,9 +16,11 @@ const Musicas = () => {
             console.log("Deu erro, tente novamente!")
         })
     }
+    
     useEffect(() => {
         recuperarValorDoCard();
     }, [])
+
     return (
         <>
             <NavBar logoInicio={logo} />
