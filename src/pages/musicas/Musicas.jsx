@@ -1,22 +1,40 @@
 import api from "../../api";
+import { toast } from 'react-toastify';
 import styles from "./Musicas.module.css";
+import { useNavigate } from "react-router-dom";
 import logo from "../../utils/assets/logo.svg";
 import React, { useState, useEffect } from "react";
 import NavBar from "../../components/navbar/NavBar";
 import CardMusica from "../../components/cardMusica/CardMusica";
+
 const Musicas = () => {
-    const [cardsData, setCardsData] = useState([]);
-    
+    const navigate = useNavigate();
+    const [cardsData, setCardsData] = useState();
+
+    const handleBotaoEsquerda = (id) => {
+        console.log(id)
+        navigate(`/editar/${id}`);
+    };
+
+    const handleBotaoDireita = (id) => {
+        toast.dismiss();
+        api.delete(`/${id}`).then(() => {
+            toast.success("Card de Música, deletado com sucesso!");
+            recuperarValorDoCard()
+        })
+            .catch(() => {
+                toast.error("Erro ao deletar, tente novamente!");
+            })
+    };
+
     function recuperarValorDoCard() {
         api.get().then((response) => {
             const { data } = response;
-            console.log(data)
             setCardsData(data)
         }).catch(() => {
-            console.log("Deu erro, tente novamente!")
+            toast.error("Erro ao recuperar os valores da API, tente novamente");
         })
     }
-    
     useEffect(() => {
         recuperarValorDoCard();
     }, [])
@@ -26,14 +44,15 @@ const Musicas = () => {
             <NavBar logoInicio={logo} />
             <div className={styles["content-musicas"]}>
                 {cardsData && cardsData.map((data, index) => (
-                    <div key={index}
-                        className={styles["quadrado"]}>
+                    <div key={index} className={styles["quadrado"]}>
                         <CardMusica
                             artista={data.artista}
                             nomeMusica={data.nomeMusica}
                             genero={data.genero}
                             anoLancamento={data.ano}
                             imagemSrc={data.imagem}
+                            onClickBotaoEsquerda={() => handleBotaoEsquerda(data.id)}
+                            onClickBotaoDireita={() => handleBotaoDireita(data.id)}
                         />
                     </div>
                 ))}
@@ -41,4 +60,5 @@ const Musicas = () => {
         </>
     );
 };
+
 export default Musicas;
